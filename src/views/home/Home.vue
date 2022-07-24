@@ -31,6 +31,7 @@ export default {
 .home{
 	display: flex;
 	.primary{
+		margin-left: 150px;
 		padding:20px 30px;
 		flex: 1;
 		background-color: #fff;

@@ -2,26 +2,50 @@
 	<div class="edit-accountInfo">
 		<div class="account-info role">
 			<span class="account-info-txt">角色</span>
-			<el-input v-model="editAccountInfo.role" :placeholder="editorOpts.role"></el-input>
+			<el-input v-model="editAccountInfo.role"
+			          :placeholder="editAccountInfo.role"
+			          :disabled="editorOpts.disable"
+
+			>
+			</el-input>
 		</div>
 		<div class="account-info account">
 			<span class="account-info-txt">账号</span>
-			<el-input v-model="editAccountInfo.username" :placeholder="editorOpts.username"></el-input>
+			<el-input v-model="editAccountInfo.username"
+			          :placeholder="editAccountInfo.username"
+			          :disabled="editorOpts.disable"
+			>
+			</el-input>
 		</div>
 		<div class="account-info password">
 			<span class="account-info-txt">密码</span>
-			<el-input v-model="editAccountInfo.password" :placeholder="editorOpts.password"></el-input>
+			<el-input v-model="editAccountInfo.password"
+			          :placeholder="editAccountInfo.password"
+			          :disabled="editorOpts.disable"
+			>
+			</el-input>
 		</div>
 		<div class="account-info server">
 			<span class="account-info-txt">区服</span>
-			<el-input v-model="editAccountInfo.server" :placeholder="editorOpts.server"></el-input>
+			<el-input v-model="editAccountInfo.server"
+			          :placeholder="editAccountInfo.server"
+			          :disabled="editorOpts.disable"
+			>
+			</el-input>
 		</div>
 		<div class="account-info remark">
 			<span class="account-info-txt">备注</span>
-			<el-input v-model="editAccountInfo.remark" :placeholder="editorOpts.remark"></el-input>
+			<el-input v-model="editAccountInfo.remark"
+			          :placeholder="editAccountInfo.remark"
+			          :disabled="editorOpts.disable"
+			>
+
+			</el-input>
 		</div>
 		<div class="edit-accountInfo-btn-wrapper">
-			<el-button type="primary" @click="handleEditAccountBtnClick">修改信息</el-button>
+			<el-button type="primary" @click="handleEditAccountBtnClick"
+			           :disabled="editorOpts.disable">修改信息
+			</el-button>
 		</div>
 	</div>
 </template>
@@ -55,16 +79,20 @@ export default {
 			historySaveAccountInfo: []
 		}
 	},
+	watch: {
+		"editorOpts.target"() {
+			Object.assign(this.editAccountInfo, this.editorOpts.target)
+		}
+	},
 	created() {
 	},
 	methods: {
 
 		/** 事件或其他相关方法 **/
 		handleEditAccountBtnClick() {
-
 			this.historySaveAccountInfo = storageUtils.getStorage("info")
-			this.editAccountInfo.id = this.editorOpts.id
-			this.editAccountInfo = {...this.editorOpts, ...this.editAccountInfo};
+			this.editAccountInfo.id = this.editorOpts.target.id
+			this.editAccountInfo = {...this.editorOpts.target, ...this.editAccountInfo};
 			this.historySaveAccountInfo.unshift(this.editAccountInfo)
 			storageUtils.saveStorage("info", commonUtils.uniqueByObject(this.historySaveAccountInfo, "id"))
 			this.historySaveAccountInfo = storageUtils.getStorage("info")
@@ -75,7 +103,13 @@ export default {
 			this.editAccountInfo.server = ""
 			this.editAccountInfo.remark = ""
 
-			this.$emit("editAccountInfo");
+			this.$emit("editAccountInfoSuccess");
+			this.$notify({
+				title: '成功',
+				message: '信息更新成功！',
+				type: 'success',
+				duration: 3000
+			});
 		}
 		/** 网络请求相关方法 **/
 	},
