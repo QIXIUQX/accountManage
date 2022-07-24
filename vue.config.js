@@ -3,6 +3,7 @@ module.exports = defineConfig({
 	transpileDependencies: true,
 
 	//部署应用包时的基本 URL
+	// publicPath: process.env.NODE_ENV === "production" ? "././" : "/",
 	publicPath: process.env.NODE_ENV === "production" ? "././" : "/",
 	configureWebpack: {
 		resolve: {
@@ -43,6 +44,14 @@ module.exports = defineConfig({
 				          `,
 			},
 		},
+	},
+	pluginOptions: {
+		electronBuilder: {
+			// customFileProtocol: 'myCustomProtocol://./' // Make sure to add "./" to the end of the protocol
+			// If you want to use the file:// protocol, add win.loadURL(`file://${__dirname}/index.html`) to your main process file
+			// In place of win.loadURL('app://./index.html'), and set customFileProtocol to './'
+			customFileProtocol: './'
+		}
 	}
 })
 
