@@ -9,9 +9,9 @@
 		// 改变DOM根节点fontSize大小的值;
 		// (屏幕宽度/设计图宽度) = 缩放或扩大的比例值;
 		if (win.clientWidth < 768) {
-			docEl.style.fontSize = 60 + "px";
+			docEl.style.fontSize = 55 + "px";
 		} else if (win.clientWidth < 1200) {
-			docEl.style.fontSize = 80 + "px";
+			docEl.style.fontSize = 75 + "px";
 		} else if (win.clientWidth < 1900) {
 			docEl.style.fontSize = 100 + "px";
 		} else {

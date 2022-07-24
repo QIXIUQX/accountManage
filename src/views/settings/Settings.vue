@@ -30,7 +30,7 @@ export default {
 		return {
 			settingsOpts: {
 				login: {
-					isLogin: true,// 默认是否需要登录
+					isLogin: false,// 默认是否需要登录
 					username: "",// 默认是否需要登录
 					password: "",// 默认是否需要登录
 				}
